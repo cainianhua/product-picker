@@ -365,5 +365,26 @@
             this.el.empty().removeData("productpicker");
         }
     };
-    
+    // Create chainable jQuery plugin:
+    $.fn.productPicker = function (options, args) {
+        var dataKey = 'productpicker';
+
+        return this.each(function () {
+            var _self = $(this),
+                instance = _self.data(dataKey);
+
+            if (typeof options === 'string') {
+                if (instance && typeof instance[options] === 'function') {
+                    instance[options](args);
+                }
+            } else {
+                // If instance already exists, destroy it:
+                if (instance && instance.dispose) {
+                    instance.dispose();
+                }
+                instance = new ProductPicker(this, options);
+                _self.data(dataKey, instance);
+            }
+        });
+    };
 })(jQuery);
