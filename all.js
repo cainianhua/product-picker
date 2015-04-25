@@ -367,8 +367,19 @@
     };
     // Create chainable jQuery plugin:
     $.fn.productPicker = function (options, args) {
-        instance = new ProductPicker(this.first, options);
-        
+        var dataKey = 'productpicker',
+        	self = this.first(),
+            instance = $(self).data(dataKey);
+
+        if (typeof options === 'string') {
+            if (instance && typeof instance[options] === 'function') {
+                instance[options](args);
+            }
+        } else {
+            instance = new ProductPicker(this, options);
+            $(self).data(dataKey, instance);
+        }
+
         return this;
     };
 })(jQuery);
