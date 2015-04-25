@@ -371,14 +371,8 @@
         	self = this.first(),
             instance = $(self).data(dataKey);
 
-        if (typeof options === 'string') {
-            if (instance && typeof instance[options] === 'function') {
-                instance[options](args);
-            }
-        } else {
-            instance = new ProductPicker(this, options);
-            $(self).data(dataKey, instance);
-        }
+        instance = new ProductPicker(this, options);
+        $(self).data(dataKey, instance);
 
         return this;
     };
