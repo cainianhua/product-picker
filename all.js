@@ -236,6 +236,7 @@
     };
     
     function DataProvider() {}
+    
     DataProvider.prototype = {
         getProducts: function(params, callback) {
             $.ajax({
@@ -254,6 +255,7 @@
             });
         }
     };
+    
     function ProductPicker(el, options) {
         var that = this,
             defaults = {
@@ -277,6 +279,7 @@
         // Initialize:
         that.initialize();
     }
+    
     ProductPicker.prototype = {
         /**
          * [initialize description]
@@ -362,30 +365,5 @@
             this.el.empty().removeData("productpicker");
         }
     };
-    // Create chainable jQuery plugin:
-    $.fn.productPicker = function (options, args) {
-        var dataKey = 'productpicker';
-        // If function invoked without argument return
-        // instance of the first matched element:
-        if (arguments.length === 0) {
-            return this.first().data(dataKey);
-        }
-        return this.each(function () {
-            var _self = $(this),
-                instance = _self.data(dataKey);
-
-            if (typeof options === 'string') {
-                if (instance && typeof instance[options] === 'function') {
-                    instance[options](args);
-                }
-            } else {
-                // If instance already exists, destroy it:
-                if (instance && instance.dispose) {
-                    instance.dispose();
-                }
-                instance = new ProductPicker(this, options);
-                _self.data(dataKey, instance);
-            }
-        });
-    };
+    
 })(jQuery);
