@@ -297,7 +297,7 @@
 
             that.retailerControl = $(".retailer", container);
 
-            that.leftView = new $.ProductFilter($("div.left", container).get(0), {
+            that.leftView = new ProductFilter($("div.left", container).get(0), {
                 //products: avaliableRetailerProducts,
                 categories: opts.categories,
                 controlTips: "Double click the below products to add to the current guide:",
@@ -306,7 +306,7 @@
                 }
             });
 
-            that.rightView = new $.ProductFilter($("div.right", container).get(0), {
+            that.rightView = new ProductFilter($("div.right", container).get(0), {
                 products: opts.selectedProducts,
                 categories: opts.categories,
                 controlTips: "Double click the below products to remove from the current guide:",
@@ -323,17 +323,12 @@
                 $.colorbox.close();
             });
         },
-        /**
-         * [loadData description]
-         * @param  {[type]}
-         * @return {[type]}
-         */
-        loadData: function(retailerArr) {
+        loadData: function(updateParams) {
             var that = this,
                 dataProvider = new DataProvider();
 
             that.leftView.searchLoading.show();
-            dataProvider.getProducts(retailerArr, function(err, products) {
+            dataProvider.getProducts(updateParams, function(err, products) {
                 that.leftView.searchLoading.hide();
                 if (err) {
                     window.alert(err.message);
@@ -342,7 +337,7 @@
                 that.processResponse(products);
             });
 
-            //that.retailerControl.find("span").text(retailerArr[1]);
+            that.retailerControl.find("span").text(updateParams[1]);
         },
         processResponse: function(items) {
             var that = this,
