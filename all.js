@@ -372,7 +372,6 @@
             instance = $(self).data(dataKey);
 
         instance = new ProductPicker(this, options);
-        $(self).data(dataKey, instance);
 
         return this;
     };
