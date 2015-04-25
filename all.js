@@ -367,23 +367,8 @@
     };
     // Create chainable jQuery plugin:
     $.fn.productPicker = function (options, args) {
-        var dataKey = 'productpicker',
-        	self = this.first(),
-            instance = $(self).data(dataKey);
-
-        if (typeof options === 'string') {
-            if (instance && typeof instance[options] === 'function') {
-                instance[options](args);
-            }
-        } else {
-            // If instance already exists, destroy it:
-            if (instance && instance.dispose) {
-                instance.dispose();
-            }
-            instance = new ProductPicker(this, options);
-            $(self).data(dataKey, instance);
-        }
-
+        instance = new ProductPicker(this.first, options);
+        
         return this;
     };
 })(jQuery);
